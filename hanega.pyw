@@ -1,13 +1,48 @@
+import ctypes
+import os
 import sys
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QFileDialog, QMessageBox
 from pathlib import Path
 from libs import ui
+from win32com.client import Dispatch
 
 
 class MainWindow(QMainWindow):
     def accept(self):
-        print("Done")
+        if self.migotoPath is None or self.genshinPath is None:
+            msg = QMessageBox()
+            msg.setWindowTitle("Error")
+            msg.setText("Both the 3DMigoto and Genshin Impact executables must be selected before continuing.")
+            msg.setIcon(QMessageBox.Critical)
+            msg.setStandardButtons(QMessageBox.Ok)
+            msg.setDefaultButton(QMessageBox.Ok)
+            msg.exec()
+            return
+
+        if self.ui.uacCheckbox.isChecked():
+            msg = QMessageBox()
+            msg.setWindowTitle("Info")
+            msg.setText("To prevent the \"Run as Admin\" prompt when launching games, Hanega will now start a helper "
+                        "program, Musou, which requires admin privileges to make necessary system changes. You will "
+                        "see a \"Run as Admin\" prompt for Musou, allowing it to apply these changes. After this "
+                        "setup, you won’t see the prompt when starting your games.")
+            msg.setIcon(QMessageBox.Information)
+            msg.setStandardButtons(QMessageBox.Ok)
+            msg.setDefaultButton(QMessageBox.Ok)
+            msg.exec()
+            if getattr(sys, "frozen", False):
+                ctypes.windll.shell32.ShellExecuteW(None, "runas",
+                                                    f"{sys._MEIPASS}\\libs\\compiled\\musou.exe",
+                                                    f"-g \"{self.genshinPath}\" -m \"{self.migotoPath}\"", None, 1)
+            else:
+                ctypes.windll.shell32.ShellExecuteW(None, "runas", f"{os.path.dirname(__file__)}\\libs\\compiled\\musou.exe",
+                                                f"-g \"{self.genshinPath}\" -m \"{self.migotoPath}\"", None, 1)
+
+        shell = Dispatch('WScript.Shell')
+        shortcut = shell.CreateShortCut(os.path.join(os.environ['USERPROFILE'], 'Desktop') + r"\link.lnk")
+        shortcut.TargetPath = self.migotoPath
+        shortcut.save()
         self.close()
 
     def reject(self):
@@ -21,7 +56,7 @@ class MainWindow(QMainWindow):
 
     def selectGenshin(self):
         genshinPath, selectedFilter = QFileDialog.getOpenFileUrl(self, "Select Genshin Impact Executable",
-                                                                 str(Path.home()),"All Executables (*.exe)")
+                                                                 str(Path.home()), "All Executables (*.exe)")
         self.genshinPath = genshinPath.toLocalFile()
         self.ui.genshinPathField.setText(self.genshinPath)
 

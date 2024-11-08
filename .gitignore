@@ -1,2 +1,7 @@
 /.idea
 /.venv
+/build
+/dist
+/musou/build
+/musou/dist
+/libs/compiled
