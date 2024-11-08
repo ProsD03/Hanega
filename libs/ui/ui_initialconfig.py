@@ -86,10 +86,10 @@ class InitialConfig(object):
 
         self.verticalLayout_2.addLayout(self.horizontalLayout_2)
 
-        self.regeditCheckbox = QCheckBox(self.widget)
-        self.regeditCheckbox.setObjectName(u"regeditCheckbox")
+        self.uacCheckbox = QCheckBox(self.widget)
+        self.uacCheckbox.setObjectName(u"uacCheckbox")
 
-        self.verticalLayout_2.addWidget(self.regeditCheckbox)
+        self.verticalLayout_2.addWidget(self.uacCheckbox)
 
         self.buttonBox = QDialogButtonBox(self.widget)
         self.buttonBox.setObjectName(u"buttonBox")
@@ -105,11 +105,6 @@ class InitialConfig(object):
 
 
         self.retranslateUi(Dialog)
-        self.buttonBox.accepted.connect(Dialog.accept)
-        self.buttonBox.rejected.connect(Dialog.reject)
-        self.selectMigotoButton.clicked.connect(Dialog.selectMigoto)
-        self.selectGenshinButton.clicked.connect(Dialog.selectGenshin)
-
         QMetaObject.connectSlotsByName(Dialog)
     # setupUi
 
@@ -117,8 +112,8 @@ class InitialConfig(object):
         Dialog.setWindowTitle(QCoreApplication.translate("Dialog", u"Hanega Initial Configuration", None))
         self.label.setText(QCoreApplication.translate("Dialog", u"3DMigoto Executable Path", None))
         self.selectMigotoButton.setText(QCoreApplication.translate("Dialog", u"Select...", None))
-        self.label_2.setText(QCoreApplication.translate("Dialog", u"Genshin Impact ExecutablePath", None))
+        self.label_2.setText(QCoreApplication.translate("Dialog", u"Genshin Impact Executable Path", None))
         self.selectGenshinButton.setText(QCoreApplication.translate("Dialog", u"Select...", None))
-        self.regeditCheckbox.setText(QCoreApplication.translate("Dialog", u"Create System Registry Exclusions?", None))
+        self.uacCheckbox.setText(QCoreApplication.translate("Dialog", u"Remove \"Run as Admin\" pop-up?", None))
     # retranslateUi
 

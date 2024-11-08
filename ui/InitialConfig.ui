@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -72,7 +72,7 @@
         <item>
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>Genshin Impact ExecutablePath</string>
+           <string>Genshin Impact Executable Path</string>
           </property>
          </widget>
         </item>
@@ -95,9 +95,9 @@
          </layout>
         </item>
         <item>
-         <widget class="QCheckBox" name="regeditCheckbox">
+         <widget class="QCheckBox" name="uacCheckbox">
           <property name="text">
-           <string>Creare System Registry Exclusions?</string>
+           <string>Remove &quot;Run as Admin&quot; pop-up?</string>
           </property>
          </widget>
         </item>
