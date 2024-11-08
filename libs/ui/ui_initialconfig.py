@@ -119,6 +119,6 @@ class InitialConfig(object):
         self.selectMigotoButton.setText(QCoreApplication.translate("Dialog", u"Select...", None))
         self.label_2.setText(QCoreApplication.translate("Dialog", u"Genshin Impact ExecutablePath", None))
         self.selectGenshinButton.setText(QCoreApplication.translate("Dialog", u"Select...", None))
-        self.regeditCheckbox.setText(QCoreApplication.translate("Dialog", u"Creare System Registry Exclusions?", None))
+        self.regeditCheckbox.setText(QCoreApplication.translate("Dialog", u"Create System Registry Exclusions?", None))
     # retranslateUi
 
